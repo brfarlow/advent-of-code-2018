@@ -7,7 +7,7 @@ def get_nodes(lines):
     lines = [line.split() for line in lines]
     lines = [(line[1], line[7]) for line in lines]
     # thanks Azia I'm stealing your method for getting the alphabet
-    all_nodes = set([chr(i + ord('A')) for i in range(26)])
+    all_nodes = set(chr(i + ord('A')) for i in range(26))
     needed_before = defaultdict(set)
     for (before, after) in lines:
         needed_before[after].add(before)
