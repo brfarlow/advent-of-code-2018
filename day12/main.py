@@ -26,7 +26,7 @@ def part_1(lines):
         if line[-1] == '#':
             patterns.add(line[:5])
 
-    current_gen = set(i for i, c in enumerate(initial_state) if c == '#')
+    current_gen = set(i for i, j in enumerate(initial_state) if j == '#')
 
     for i in range(20):
         current_gen = calculate_next_gen(current_gen, patterns)
@@ -34,6 +34,27 @@ def part_1(lines):
     return sum(current_gen)
 
 
+def part_2(lines):
+    initial_state = lines[0].split(': ')[1]
+    patterns = set()
+    for line in lines[2:]:
+        if line[-1] == '#':
+            patterns.add(line[:5])
+
+    current_gen = set(i for i, j in enumerate(initial_state) if j == '#')
+
+    current_sum = sum(current_gen)
+    previous_sum = 0
+    for i in range(1000):
+        previous_sum = current_sum
+        current_gen = calculate_next_gen(current_gen, patterns)
+        current_sum = sum(current_gen)
+
+    diff = current_sum - previous_sum
+    return (50000000000 - 1000) * diff + current_sum
+
+
 with open('input.txt', 'r') as f:
     lines = [line.rstrip('\n') for line in f]
     print(part_1(lines))
+    print(part_2(lines))
